@@ -12,7 +12,8 @@ class MatriculaController extends Controller
      */
     public function index()
     {
-        //
+        $matricula = Matricula::all();
+        return response()->json($matricula);
     }
 
     /**
@@ -28,15 +29,22 @@ class MatriculaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'curso_id' => 'required',
+            'alumno_id' => 'required',
+        ]);
+
+        $matricula = Matricula::create($request->all());
+        return response()->json(['matriculas' => $matricula,] );
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Matricula $matricula)
+    public function show( $id)
     {
-        //
+        $matricula = Matricula::findOrFail($id);
+        return response()->json($matricula);
     }
 
     /**
@@ -50,16 +58,26 @@ class MatriculaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Matricula $matricula)
+    public function update(Request $request,$id)
     {
-        //
+        $request->validate([
+            'curso_id' => 'required',
+            'alumno_id' => 'required',
+
+        ]);
+
+        $matricula = Matricula::findOrFail($id);
+        $matricula->update($request->all());
+        return response()->json($matricula);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Matricula $matricula)
+    public function destroy( $id)
     {
-        //
+        $matricula = Matricula::findOrFail($id);
+        $matricula->delete();
+        return response()->json($matricula);
     }
 }

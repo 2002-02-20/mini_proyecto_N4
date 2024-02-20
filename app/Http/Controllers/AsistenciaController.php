@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Asistencia;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AsistenciaController extends Controller
@@ -12,7 +13,8 @@ class AsistenciaController extends Controller
      */
     public function index()
     {
-        //
+        $asistencia = Asistencia::all();
+        return response()->json($asistencia);
     }
 
     /**
@@ -28,15 +30,29 @@ class AsistenciaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'matricula_id' => 'required',
+            'date' => 'required|date',
+            'asistencia' => 'required|in:A,T,F',
+        ]);
+
+        // Crea un nuevo registro de asistencia
+        $asistencia = Asistencia::create([
+            'enroll_id' => $request->enroll_id,
+            'date' => Carbon::now(),      
+            'attendance' => $request->attendance,
+        ]);
+
+        return response()->json(['message' => 'Asistencia registrada correctamente', 'data' => $asistencia], 201);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Asistencia $asistencia)
+    public function show( $id)
     {
-        //
+        $asistencia = Asistencia::findOrFail($id);
+        return response()->json($asistencia);
     }
 
     /**
@@ -50,16 +66,27 @@ class AsistenciaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Asistencia $asistencia)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'matricula_id' => 'required',
+            'date' => 'required|date',
+            'asistencia' => 'required|in:A,T,F',
+
+        ]);
+
+        $asistencia = Asistencia::findOrFail($id);
+        $asistencia->update($request->all());
+        return response()->json($asistencia);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Asistencia $asistencia)
+    public function destroy( $id)
     {
-        //
+        $asistencia = Asistencia::findOrFail($id);
+        $asistencia->delete();
+        return response()->json($asistencia);
     }
 }

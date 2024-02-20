@@ -7,5 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Matricula extends Model
 {
-    use HasFactory;
+    protected $fillable = ['curso_id',
+    'alumno_id'];
 }

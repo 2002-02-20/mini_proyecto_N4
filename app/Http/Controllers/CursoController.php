@@ -12,7 +12,8 @@ class CursoController extends Controller
      */
     public function index()
     {
-        //
+        $materia = Curso::all();
+        return response()->json($materia);
     }
 
     /**
@@ -28,15 +29,22 @@ class CursoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'curso' => 'required',
+           
+        ]);
+
+        $curso = Curso::create($request->all());
+        return response()->json($curso);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Curso $curso)
+    public function show( $id)
     {
-        //
+        $curso = Curso::findOrFail($id);
+        return response()->json($curso);
     }
 
     /**
@@ -50,16 +58,24 @@ class CursoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Curso $curso)
+    public function update(Request $request,  $id)
     {
-        //
+        $request->validate([
+            'curso' => 'required',
+        ]);
+
+        $curso = Curso::findOrFail($id);
+        $curso->update($request->all());
+        return response()->json($curso);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Curso $curso)
+    public function destroy( $id)
     {
-        //
+        $curso = Curso::findOrFail($id);
+        $curso->delete();
+        return response()->json(204);
     }
 }
