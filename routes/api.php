@@ -19,8 +19,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+/* ALUMNOS */
 Route::apiResource('/', AlumnoController::class);
-
 Route::get('/alumno/{id}', [AlumnoController::class, 'show']);
 
 Route::post('/alumno', [AlumnoController::class, 'store']);

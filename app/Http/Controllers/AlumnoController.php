@@ -29,10 +29,10 @@ class AlumnoController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(['nombres' => 'required', 'apellidos' => 'required', 'email' => 'required|emial|unique:alumno']);
+        $request->validate(['nombres' => 'required', 'apellidos' => 'required', 'email' => 'required|email|unique:alumnos']);
 
         $alumno = Alumno::create($request->all());
-        return response()->json(['alumno' => $alumno]);
+        return response()->json(['alumnos' => $alumno]);
     }
 
     /**
@@ -55,7 +55,7 @@ class AlumnoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Alumno $id)
+    public function update(Request $request, $id)
     {
         $request->validate(['nombres' => 'required', 'apellidos' => 'required', 'email' => 'required|email|unique:alumnos,email,' . $id,]);
 
@@ -67,7 +67,7 @@ class AlumnoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Alumno $id)
+    public function destroy($id)
     {
         $alumno = Alumno::findOrFail($id);
         $alumno->delete();
