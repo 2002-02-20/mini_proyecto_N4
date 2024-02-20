@@ -12,7 +12,8 @@ class DocenteController extends Controller
      */
     public function index()
     {
-        //
+        $docente = Docente::all();
+        return response()->json($docente);
     }
 
     /**
@@ -28,15 +29,19 @@ class DocenteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate(['nombres' => 'required', 'apellidos' => 'required', 'email' => 'required|email|unique:docentes']);
+
+        $docentes = Docente::create($request->all());
+        return response()->json(['docentesdocentes' => $docentes]);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Docente $docente)
+    public function show( $id)
     {
-        //
+        $docente = Docente::findOrFail($id);
+        return response()->json($docente);
     }
 
     /**
@@ -50,16 +55,22 @@ class DocenteController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Docente $docente)
+    public function update(Request $request,  $id)
     {
-        //
+        $request->validate(['nombres' => 'required', 'apellidos' => 'required', 'email' => 'required|email|unique:docentes,email,' . $id,]);
+
+        $docente = Docente::findOrFail($id);
+        $docente->update($request->all());
+        return response()->json($docente);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Docente $docente)
+    public function destroy( $id)
     {
-        //
+        $docente = Docente::findOrFail($id);
+        $docente->delete();
+        return response()->json($docente);
     }
 }
