@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Asistencia extends Model
 {
-    protected $fillable = ['matricula_id', 'date', 'asistencia'];
+    protected $fillable = ['matricula_id', 'asistencia', 'date'];
 }

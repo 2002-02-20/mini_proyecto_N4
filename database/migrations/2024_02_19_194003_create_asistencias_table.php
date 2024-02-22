@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('matricula_id')->constrained('matriculas');
             $table->string('asistencia');
-            $table->dateTime('date');
+            $table->enum('attendance', ['A', 'T', 'F']);
             $table->timestamps();
         });
     }

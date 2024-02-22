@@ -32,18 +32,18 @@ class AsistenciaController extends Controller
     {
         $request->validate([
             'matricula_id' => 'required',
-            'date' => 'required|date',
             'asistencia' => 'required|in:A,T,F',
+            'date' => 'required|date'
         ]);
 
         // Crea un nuevo registro de asistencia
         $asistencia = Asistencia::create([
-            'enroll_id' => $request->enroll_id,
+            'matricula_id' => $request->matricula_id,
+            'asistencia' => $request->asistencia,
             'date' => Carbon::now(),      
-            'attendance' => $request->attendance,
         ]);
 
-        return response()->json(['message' => 'Asistencia registrada correctamente', 'data' => $asistencia], 201);
+        return response()->json(['message' => 'Asistencia registrada correctamente', 'date' => $asistencia], 201);
     }
 
     /**
