@@ -76,6 +76,6 @@ class CursoController extends Controller
     {
         $curso = Curso::findOrFail($id);
         $curso->delete();
-        return response()->json(204);
+        return 'El registro se borro correctamente';
     }
 }

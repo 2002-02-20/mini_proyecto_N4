@@ -71,6 +71,6 @@ class AlumnoController extends Controller
     {
         $alumno = Alumno::findOrFail($id);
         $alumno->delete();
-        return response()->json($alumno);
+        return 'El registro se borro correctamente';
     }
 }

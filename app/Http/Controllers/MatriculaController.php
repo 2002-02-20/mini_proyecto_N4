@@ -78,6 +78,6 @@ class MatriculaController extends Controller
     {
         $matricula = Matricula::findOrFail($id);
         $matricula->delete();
-        return response()->json($matricula);
+        return 'El registro se borro correctamente';
     }
 }

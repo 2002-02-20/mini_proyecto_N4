@@ -71,6 +71,6 @@ class DocenteController extends Controller
     {
         $docente = Docente::findOrFail($id);
         $docente->delete();
-        return response()->json($docente);
+        return 'El registro se borro correctamente';
     }
 }

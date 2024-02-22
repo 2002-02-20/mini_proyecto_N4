@@ -87,6 +87,6 @@ class AsistenciaController extends Controller
     {
         $asistencia = Asistencia::findOrFail($id);
         $asistencia->delete();
-        return response()->json($asistencia);
+        return 'El registro se borro correctamente';
     }
 }
